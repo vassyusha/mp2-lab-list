@@ -1,3 +1,5 @@
+#pragma once
+#include <iostream>
 template<typename T>
 class TList {
 protected:
@@ -34,16 +36,16 @@ public:
 	TList(const TList& other) {//copy constructor
 		if (other.sz != 0) {
 			this->sz = other.sz;
-			Node* curr1 = other.first; //èäåì ïî ýëåìåíòàì êîïèðóåìîãî ñïèñêà
-			Node* curr2 = new Node(nullptr, curr1->value); //òî, êóäà êîïèðóåì ýëåìåíòû ñïèñêà
+			Node* curr1 = other.first; //Ã¨Ã¤Ã¥Ã¬ Ã¯Ã® Ã½Ã«Ã¥Ã¬Ã¥Ã­Ã²Ã Ã¬ ÃªÃ®Ã¯Ã¨Ã°Ã³Ã¥Ã¬Ã®Ã£Ã® Ã±Ã¯Ã¨Ã±ÃªÃ 
+			Node* curr2 = new Node(nullptr, curr1->value); //Ã²Ã®, ÃªÃ³Ã¤Ã  ÃªÃ®Ã¯Ã¨Ã°Ã³Ã¥Ã¬ Ã½Ã«Ã¥Ã¬Ã¥Ã­Ã²Ã» Ã±Ã¯Ã¨Ã±ÃªÃ 
 			this->first = curr2;
 
-			while (!curr1) {//ïîêà ýëåìåíò ñóùåñòâóåò
+			while (!curr1) {//Ã¯Ã®ÃªÃ  Ã½Ã«Ã¥Ã¬Ã¥Ã­Ã² Ã±Ã³Ã¹Ã¥Ã±Ã²Ã¢Ã³Ã¥Ã²
 				Node* next1 = curr1->next; 
-				if (!next1) break; //ïðîâåðÿåì åñòü ëè â êîïèðóåìîì ñïèñêå ñëåäóþùèé ýëåìåíò
-				curr2->next = new Node(nullptr, next1->value); //åñëè åñòü, òî êîïèðóåì ñëåäóþùèé ýëåìåíò
-				curr2 = curr2->next; //äâèãàåìñÿ ïî êîïèðóåìîìó ñïèñêó
-				curr1 = curr1->next; //è ïî òîìó, êóäà êîïèðóåì
+				if (!next1) break; //Ã¯Ã°Ã®Ã¢Ã¥Ã°Ã¿Ã¥Ã¬ Ã¥Ã±Ã²Ã¼ Ã«Ã¨ Ã¢ ÃªÃ®Ã¯Ã¨Ã°Ã³Ã¥Ã¬Ã®Ã¬ Ã±Ã¯Ã¨Ã±ÃªÃ¥ Ã±Ã«Ã¥Ã¤Ã³Ã¾Ã¹Ã¨Ã© Ã½Ã«Ã¥Ã¬Ã¥Ã­Ã²
+				curr2->next = new Node(nullptr, next1->value); //Ã¥Ã±Ã«Ã¨ Ã¥Ã±Ã²Ã¼, Ã²Ã® ÃªÃ®Ã¯Ã¨Ã°Ã³Ã¥Ã¬ Ã±Ã«Ã¥Ã¤Ã³Ã¾Ã¹Ã¨Ã© Ã½Ã«Ã¥Ã¬Ã¥Ã­Ã²
+				curr2 = curr2->next; //Ã¤Ã¢Ã¨Ã£Ã Ã¥Ã¬Ã±Ã¿ Ã¯Ã® ÃªÃ®Ã¯Ã¨Ã°Ã³Ã¥Ã¬Ã®Ã¬Ã³ Ã±Ã¯Ã¨Ã±ÃªÃ³
+				curr1 = curr1->next; //Ã¨ Ã¯Ã® Ã²Ã®Ã¬Ã³, ÃªÃ³Ã¤Ã  ÃªÃ®Ã¯Ã¨Ã°Ã³Ã¥Ã¬
 			}
 		}
 	}
@@ -130,7 +132,7 @@ public:
 	T& at(iterator it) { return (*it).value; }
 	T at(iterator it) const { return (*it).value; }
 
-	//insert'û è erase'û
+	//insert'Ã» Ã¨ erase'Ã»
 
 	iterator insert_after(T data, iterator prev) {
 		Node* tmp = new Node(nullptr, data);
@@ -160,7 +162,7 @@ public:
 		return iterator(this->first, this);
 	}
 
-	//ñðàâíåíèå
+	//Ã±Ã°Ã Ã¢Ã­Ã¥Ã­Ã¨Ã¥
 	bool operator==(const TList& other) {
 		if (this->sz != other.sz) return false;
 
