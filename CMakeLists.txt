@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 option(BUILD_SAMPLES ON)
-
+set (CMAKE_CXX_STANDARD 11)
 set(PROJECT_NAME list)
 project(${PROJECT_NAME})
 
