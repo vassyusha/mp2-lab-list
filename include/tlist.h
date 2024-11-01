@@ -24,6 +24,10 @@ public:
 	}
 
 	~TList() {//destructor
+		this->clear();
+	}
+
+	void clear(){
 		Node* curr;
 		while (this->first != nullptr) {
 			curr = this->first->next;
@@ -52,12 +56,12 @@ public:
 
 	TList& operator=(const TList& other) {//operator=
 		if(this == &other) return *this;
+		this->clear();
 		this->sz = other.sz;
 		if (other.sz != 0) {
 			Node* curr1 = other.first;
 			Node* curr2 = new Node(nullptr, curr1->value);
 			this->first = curr2;
-
 			while (!curr1) {
 				Node* next1 = curr1->next; 
 				if (!next1) break; 
@@ -92,7 +96,7 @@ public:
 	}
 
 	class iterator {
-	public:
+	private:
 		Node* it = nullptr;
 		TList* list = nullptr;
 	public:
@@ -119,15 +123,7 @@ public:
 		return iterator(this->first, this);
 	}
 
-	iterator end() {
-		Node* curr = this->first;
-		if (curr) {
-			while (curr->next) {
-				curr = curr->next;
-			}
-		}
-		return iterator(curr, this);
-	}
+	iterator end() { return nullptr; }
 
 	T& at(iterator it) { return (*it).value; }
 	T at(iterator it) const { return (*it).value; }
@@ -135,6 +131,7 @@ public:
 	//insert'û è erase'û
 
 	iterator insert_after(T data, iterator prev) {
+		if(prev == this->begin()) return insert_front(data);
 		Node* tmp = new Node(nullptr, data);
 		tmp->next = prev.it->next;
 		prev.it->next = tmp;
@@ -147,6 +144,7 @@ public:
 	}
 
 	iterator erase_after(iterator prev) {
+		if(prev == this->begin()) return erase_front();
 		Node* tmp = prev.it->next;
 		if (tmp) {
 			prev.it->next = prev.it->next->next;
