@@ -50,7 +50,7 @@ int main()
 	it1 = l1.begin();
 	it2 = l2.begin();
 
-	l = solution(l1, l2);
+	l = solution<int>(l1, l2);
 	std::cout << l;
 
 	return 0;
