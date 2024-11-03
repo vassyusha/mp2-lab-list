@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+using namespace std;
 template<typename T>
 class TList {
 protected:
@@ -98,9 +99,8 @@ public:
 	class iterator {
 	public:
 		Node* it = nullptr;
-		TList* list = nullptr;
 	public:
-		iterator(Node* node, TList* list): it(node), list(list){}
+		iterator(Node* node): it(node){}
 
 		Node& operator*() { return *(this->it); }
 		Node operator*() const { return *(this->it); }
@@ -119,11 +119,11 @@ public:
 		}
 	};
 
-	iterator begin() {
-		return iterator(this->first, this);
+	iterator begin() const{
+		return iterator(this->first);
 	}
 
-	iterator end() { return iterator(nullptr, this); }
+	iterator end() const{ return iterator(nullptr); }
 
 	T& at(iterator it) { return (*it).value; }
 	T at(iterator it) const { return (*it).value; }
@@ -131,18 +131,18 @@ public:
 	//insert'û è erase'û
 
 	iterator insert_after(T data, iterator prev) {
-		//if(prev == this->begin()) return insert_front(data);
+		//if(prev == iterator(nullptr)) return insert_front(data);
 		Node* tmp = new Node(nullptr, data);
 		tmp->next = prev.it->next;
 		prev.it->next = tmp;
 		this->sz++;
-		return iterator(tmp, this);
+		return iterator(tmp);
 	}
 
 	iterator insert_front(T data) {
 		this->first = new Node(first, data);
 		this->sz++;
-		return iterator(this->first, this);
+		return iterator(this->first);
 	}
 
 	iterator erase_after(iterator prev) {
@@ -151,17 +151,19 @@ public:
 		if (tmp) {
 			prev.it->next = prev.it->next->next;
 			delete tmp;
+			this->sz--;
 		}
-		this->sz--;
-		return iterator(prev.it->next, this);
+		return iterator(prev.it->next);
 	}
 
 	iterator erase_front() {
-		Node* tmp = this->first->next;
-		delete this->first;
-		this->first = tmp;
-		this->sz--;
-		return iterator(this->first, this);
+		if (this->first) {
+			Node* tmp = this->first->next;
+			delete this->first;
+			this->first = tmp;
+			this->sz--;
+		}
+		return iterator(this->first);
 	}
 
 	//ñðàâíåíèå
@@ -181,16 +183,16 @@ public:
 		return !((*this) == other);
 	}
 
-	//friend ostream& operator<<(ostream& ostr, const TList& l)
-	//{
-	//	for (TList::iterator it = l.begin(); it != l.end(); ++it) {
-	//		ostr << (*it)->value << " "
-	//	}
-	//	//Node* curr = this->first;
-	//	//while (curr) {
-	//	//	ostr << curr->value << " ";
-	//	//	curr = curr->next;
-	//	//}
-	//	return ostr;
-	//}
+	friend ostream& operator<<(ostream& ostr, const TList& l)
+	{
+		for (TList::iterator it = l.begin(); it != l.end(); ++it) {
+			ostr << l.at(it) << " ";
+		}
+		//Node* curr = this->first;
+		//while (curr) {
+		//	ostr << curr->value << " ";
+		//	curr = curr->next;
+		//}
+		return ostr;
+	}
 };
