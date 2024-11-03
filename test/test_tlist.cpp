@@ -177,7 +177,7 @@ TEST(TList, can_insert_element)
 	l.insert_front(3);
 	TList<int>::iterator it = l.begin();
 	l.insert_after(2, it);
-	EXPECT_EQ(l.at(it), 3);
+	EXPECT_EQ(l.at(++it), 2);
 }
 
 TEST(TList, can_erase_front_element)
@@ -195,7 +195,8 @@ TEST(TList, can_erase_element)
 	TList<int> l;
 	l.insert_front(3);
 	TList<int>::iterator it = l.begin();
-	l.insert_after(2, it);
+	it = l.insert_after(2, it);
+	l.insert_after(4, it);
 	l.erase_after(l.begin());
-	EXPECT_EQ(l.at(l.begin()), 3);
+	EXPECT_EQ(l.at(++l.begin()), 4);
 }

@@ -96,7 +96,7 @@ public:
 	}
 
 	class iterator {
-	private:
+	public:
 		Node* it = nullptr;
 		TList* list = nullptr;
 	public:
@@ -123,7 +123,7 @@ public:
 		return iterator(this->first, this);
 	}
 
-	iterator end() { return nullptr; }
+	iterator end() { return iterator(nullptr, this); }
 
 	T& at(iterator it) { return (*it).value; }
 	T at(iterator it) const { return (*it).value; }
@@ -131,25 +131,28 @@ public:
 	//insert'û è erase'û
 
 	iterator insert_after(T data, iterator prev) {
-		if(prev == this->begin()) return insert_front(data);
+		//if(prev == this->begin()) return insert_front(data);
 		Node* tmp = new Node(nullptr, data);
 		tmp->next = prev.it->next;
 		prev.it->next = tmp;
+		this->sz++;
 		return iterator(tmp, this);
 	}
 
 	iterator insert_front(T data) {
 		this->first = new Node(first, data);
+		this->sz++;
 		return iterator(this->first, this);
 	}
 
 	iterator erase_after(iterator prev) {
-		if(prev == this->begin()) return erase_front();
+		//if(prev == this->begin()) return erase_front();
 		Node* tmp = prev.it->next;
 		if (tmp) {
 			prev.it->next = prev.it->next->next;
 			delete tmp;
 		}
+		this->sz--;
 		return iterator(prev.it->next, this);
 	}
 
@@ -157,6 +160,7 @@ public:
 		Node* tmp = this->first->next;
 		delete this->first;
 		this->first = tmp;
+		this->sz--;
 		return iterator(this->first, this);
 	}
 
