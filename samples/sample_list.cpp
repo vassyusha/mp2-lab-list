@@ -3,10 +3,10 @@
 #include <iostream>
 #include "tlist.h"
 //---------------------------------------------------------------------------
-template <class T>
-TList<T> solution(const TList<T>& l1, const TList<T>& l2) {
-	TList<T> l;
-	TList<T>::iterator it1 = l1.begin(), it2 = l2.begin(), it = l.begin();
+
+TList<int> solution(const TList<int>& l1, const TList<int>& l2) {
+	TList<int> l;
+	TList<int>::iterator it1 = l1.begin(), it2 = l2.begin(), it = l.begin();
 	if (it2 == l2.end()) l = l1;
 	else if (it1 == l1.end()) l = l2; //если l1 пустой, то просто 
 	else {
@@ -50,7 +50,7 @@ int main()
 	it1 = l1.begin();
 	it2 = l2.begin();
 
-	l = solution<int>(l1, l2);
+	l = solution(l1, l2);
 	std::cout << l;
 
 	return 0;
