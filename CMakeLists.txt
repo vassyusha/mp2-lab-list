@@ -13,10 +13,8 @@ set(MP2_CUSTOM_PROJECT "${PROJECT_NAME}")
 set(MP2_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 add_subdirectory(include)
+add_subdirectory(samples)
 
-if(BUILD_SAMPLES)
-	add_subdirectory(samples)
-endif()
 
 if(BUILD_TESTING)
     add_subdirectory(gtest)
